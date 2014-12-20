@@ -22,6 +22,14 @@ def convolute(x,y, img, kernel):
     #Return the accumulated result:
     return acc
 
+#Define a function to convolute an entire image with a kernel:
+def convolute_image(img, kernel):
+    ip = np.zeros_like(img)
+    for x in range(img.shape[0]):
+        for y in range(img.shape[1]):
+            ip[x,y] = convolute(x,y,img,kernel)
+
+    return ip
 
 #This is a direct translation of the interp-function found on absalon into python:
 def interp(startim, point, values, maxitt, l):
