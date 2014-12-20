@@ -17,11 +17,35 @@ def gaussian_blur(w, sigma):
 
     return m/float(m.sum())
 
+'''
+Filtering:
+'''
 
-def make_pyramid(image, levels=4, sample_rate=2):
+def blur(img):
     pass
 
+
+'''
+Sampling:
+'''
+
+#Define a function to upsample and smoothe an image:
 def upsample(image, sample_rate=2):
+    pass
+
+#Define a function to smoothe and downsample an image
+def downsample(image, sample_rate=2):
+    #Blur the image:
+    blurred_image = blur(image)
+
+    #Take samples:
+    return blurred_image[::sample_rate, ::sample_rate]
+
+'''
+Pyramid construction:
+'''
+
+def make_pyramid(image, levels=4, sample_rate=2):
     pass
 
 '''
@@ -29,4 +53,8 @@ Testing playground:
 '''
 
 if __name__ == '__main__':
-    pass
+    x = np.array([[1,2,3],[4,5,6],[7,8,9]])
+    print x
+
+    print x[::4, ::4].shape
+
