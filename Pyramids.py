@@ -2,9 +2,11 @@ __author__ = 'Michael'
 
 import numpy as np
 from skimage.filter import gaussian_filter
+from skimage.filter.rank import gradient
 from skimage.io import imread
 from skimage.viewer import ImageViewer
 from skimage import color
+from skimage.filter import canny, hsobel, vsobel
 
 '''
 Filtering:
@@ -73,12 +75,22 @@ def up_pyramid(image, levels=4, sample_rate=2):
 '''
 Testing playground:
 '''
-
+import math
 if __name__ == '__main__':
     img = imread('pentagonL.jpg')
     img2 = color.rgb2gray(img)
 
-    pyram = down_pyramid(img2)
+    img3 = canny(img2)
+    viewer = ImageViewer(img3)
+    viewer.show()
+
+    h = hsobel(img2)
+    v = vsobel(img2)
+    img4 = np.arctan2(h,v)
+    viewer = ImageViewer(img4)
+    viewer.show()
+
+    pyram = down_pyramid(img2, sample_rate=2)
 
     for image in pyram:
         viewer = ImageViewer(image)

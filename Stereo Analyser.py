@@ -1,10 +1,19 @@
 __author__ = 'Michael'
 
 import Pyramids
-import GradientCalculator
 import EdgePointDetector
 import numpy as np
 import Helper
+from skimage.filter import hsobel, vsobel
+
+'''
+Feature extraction:
+'''
+def gradient_orientation_map(image):
+    h = hsobel(image)
+    v = vsobel(image)
+    return np.arctan2(h,v)
+
 
 '''
 Matching algorithm:
@@ -30,8 +39,8 @@ def analyse(left_image, right_image, matching_heuristic, pyramid_levels=4, searc
     for i in xrange(pyramid_levels):
         left_edges[i] = EdgePointDetector.detect(left_pyramid[i])
         right_edges[i] = EdgePointDetector.detect(right_pyramid[i])
-        left_gradients[i] = GradientCalculator.calculate(left_pyramid[i])
-        right_gradients[i] = GradientCalculator.calculate(left_pyramid[i])
+        left_gradients[i] = gradient_orientation_map(left_pyramid[i])
+        right_gradients[i] = gradient_orientation_map(left_pyramid[i])
 
     result_matrices = np.zeros_like(left_pyramid)
 
