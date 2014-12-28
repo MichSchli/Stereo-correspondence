@@ -53,7 +53,7 @@ def interp(startim, point, values, maxitt, l):
             temp[0,y] = temp[2,y]
             temp[dimx,y] = temp[dimx-2,y]
 
-        for x in range(0,dimy+1):
+        for x in range(0,dimx+1):
             temp[x,0] = temp[x,2]
             temp[x,dimy] = temp[x,dimy-2]
 
@@ -77,7 +77,7 @@ def testinterp(noiselevel, pointfrac):
     dy2      = dimy/2
     startval = 3.0
     l   = 0.01
-    maxitt   = 500
+    maxitt   = 10
 
     # define ground truth
     GT = np.zeros((dimx, dimy))
@@ -95,7 +95,7 @@ def testinterp(noiselevel, pointfrac):
     values = np.multiply((1*points), Data)
     start = startval*np.ones((dimx,dimy))
 
-    print "Interpret!"
+    print "Interpolatet!"
     Ipim = interp(start, points, values, maxitt, l)
     print "Done!"
 
