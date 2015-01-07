@@ -1,4 +1,3 @@
-__author__ = 'Michael'
 
 '''
 Imports:
@@ -150,7 +149,6 @@ def analyse(left_image, right_image, pyramid_levels=4, search_radius = 10, maxit
 
     result_matrices = [None]*pyramid_levels
 
-    #TODO: What are we supposed to do with the first layer?
     #Set the first prior:
     result_matrices[-1] = np.zeros_like(left_edges[-1], dtype=np.float)
 
@@ -171,9 +169,7 @@ def show_disparity_map(disparity_map):
 
     if np.max(image) != 0:
         #Normalize and invert:
-        image = np.multiply(image, -255.0/float(np.max(image)))
-        image = np.add(image, 255)
-
+        image = np.multiply(image, 255.0/float(np.max(image)))
 
     #Show the stuff:
     viewer = ImageViewer(image.astype(np.uint8))
@@ -183,6 +179,7 @@ def show_disparity_map(disparity_map):
 Testing:
 '''
 
+#Construct a matching in dictionary fashion to
 def build_match_dic(image1, image2, matching_algorithm):
     d = {}
 
@@ -257,15 +254,16 @@ def show_matching(img, img2, matching):
 
 
 if __name__ == "__main__":
-    limg = imread('venusL.png')
+    fname1 = input("Write the name of the left image:\n")
+    fname2 = input("Write the name of the right image:\n")
+
+    limg = imread(fname1)
     limg2 = color.rgb2gray(limg)
-    rimg = imread('venusR.png')
+    rimg = imread(fname2)
     rimg2 = color.rgb2gray(rimg)
 
-    print "done loading"
+    print "Both images have been succesfully loaded. Analysing..."
 
-    show_matching(limg2,rimg2,gradient_match_wrapper)
+    img3 = analyse(limg2, rimg2, pyramid_levels=4,maxitt=500,l=400)
 
-    #img3 = analyse(limg2, rimg2, pyramid_levels=4,maxitt=100)
-
-    #show_disparity_map(img3)
+    show_disparity_map(img3)

@@ -1,4 +1,3 @@
-__author__ = 'Michael'
 
 import numpy as np
 from skimage.filter import gaussian_filter

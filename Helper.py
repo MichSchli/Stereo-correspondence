@@ -1,35 +1,3 @@
-__author__ = 'Michael'
-
-#Define a convolution formula:
-def convolute(x,y, img, kernel):
-    #First, calculate width of kernel:
-    kernel_width = len(kernel)
-    im_h = img.shape[0]-1
-    im_w = img.shape[1]-1
-
-    #Define an accumulator:
-    acc=0
-
-    #Iterate through the kernel:
-    itera = [elem - kernel_width/2 for elem in range(0, kernel_width)]
-    for i in itera:
-        for j in itera:
-            img_x = x+i
-            img_y = y+j
-            if not (img_x<0 or img_x > im_h or img_y<0 or img_y > im_w):
-                acc+=img[img_x, img_y]*kernel[i+kernel_width/2, j+kernel_width/2]
-
-    #Return the accumulated result:
-    return acc
-
-#Define a function to convolute an entire image with a kernel:
-def convolute_image(img, kernel):
-    ip = np.zeros_like(img)
-    for x in range(img.shape[0]):
-        for y in range(img.shape[1]):
-            ip[x,y] = convolute(x,y,img,kernel)
-
-    return ip
 
 #This is a direct translation of the interp-function found on absalon into python:
 def interp(startim, point, values, maxitt, l):
@@ -86,16 +54,13 @@ def testinterp(noiselevel, pointfrac):
     GT[dx2+1:,0:dy2] = 5.0
     GT[dx2+1:,dy2+1:] = 15.0
 
-    print np.random.randn(dimx,dimy).shape
-    print GT.shape
-
     # generate data
     Data = GT + noiselevel*np.random.randn(dimx,dimy)
     points = (np.random.rand(dimx,dimy) < pointfrac)
     values = np.multiply((1*points), Data)
     start = startval*np.ones((dimx,dimy))
 
-    print "Interpolatet!"
+    print "Interpolating..."
     Ipim = interp(start, points, values, maxitt, l)
     print "Done!"
 

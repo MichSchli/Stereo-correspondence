@@ -1,2 +1,0 @@
-Stereo-correspondence
-=====================
